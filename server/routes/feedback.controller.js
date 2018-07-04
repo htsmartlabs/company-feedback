@@ -4,6 +4,7 @@ const objectId = require('mongoose').Types.ObjectId;
 
 const router = express.Router();
 
+//get all the feedback
 router.get('/',(req,res,next)=>{
     Feedback.find()
     .exec()
@@ -13,6 +14,7 @@ router.get('/',(req,res,next)=>{
     .catch(next);
 });
 
+//add a feedback
 router.post('/',(req,res,next)=>{
     const feedback = new Feedback({
         email:req.body.email,
@@ -27,6 +29,7 @@ router.post('/',(req,res,next)=>{
     .catch(next);
 });
 
+//update a feedback
 router.put('/:id',(req,res,next)=>{
     if(!objectId.isValid(req.params.id)){
         return res.json({status:false,message:'Invalid user id'});
@@ -43,10 +46,10 @@ router.put('/:id',(req,res,next)=>{
             return res.json({status:true,message:'Feedback updated successfully'}); 
         })
         .catch(next);
-
     }
 });
 
+//delete a feedback
 router.delete('/:id',(req,res,next)=>{
     if(!objectId.isValid(req.params.id)){
         return res.json({status:false,message:'Invalid user id'});
